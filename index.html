@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare Turnstile Example</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Forwarding to photos/h3>
+    <form id="turnstile-form" action="#" method="POST">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyIrl4uZ9JdEYxp"></div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        window.onload = function () {
+            const turnstileElement = document.querySelector('.cf-turnstile');
+
+            turnstileElement.addEventListener('turnstile:success', function (event) {
+                const token = event.detail.response;
+
+                if (token) {
+                    // Redirect to the desired URL
+                    window.location.href = 'https://photos.app.goo.gl/dpKuuSvA2pESKoGw7';
+                }
+            });
+
+            turnstileElement.addEventListener('turnstile:error', function () {
+                document.getElementById('message').style.display = 'block';
+            });
+        };
+    </script>
+</body>
+
+</html>
