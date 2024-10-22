@@ -14,8 +14,12 @@ window.onload = function () {
                 },
                 body: JSON.stringify({ token: token })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
             .then(data => {
+                console.log('Validation response:', data);
                 if (data.success) {
                     // Redirect to the desired URL
                     window.location.href = 'https://photos.app.goo.gl/dpKuuSvA2pESKoGw7';
