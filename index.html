@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudflare Turnstile Example</title>
+    <title>Cloudflare Turnstile Auto-Redirect</title>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
         }
-
-        form {
-            margin: 20px;
+        .message {
+            display: none; /* Hide the message initially */
         }
     </style>
 </head>
-
 <body>
-    <h3>Forwarding to photos/h3>
-    <form id="turnstile-form" action="#" method="POST">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyIrl4uZ9JdEYxp"></div>
-        <button type="submit">Submit</button>
-    </form>
+    <h3>Forwarding to album</h3>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyIrl4uZ9JdEYxp"></div>
 
     <script>
         window.onload = function () {
@@ -43,5 +37,4 @@
         };
     </script>
 </body>
-
 </html>
