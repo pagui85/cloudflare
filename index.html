@@ -26,6 +26,7 @@
 
             turnstileElement.addEventListener('turnstile:success', function (event) {
                 const token = event.detail.response;
+                console.log('Turnstile success:', token);
 
                 if (token) {
                     // Redirect to the desired URL
@@ -34,6 +35,7 @@
             });
 
             turnstileElement.addEventListener('turnstile:error', function () {
+                console.log('Turnstile error');
                 document.getElementById('message').style.display = 'block';
             });
 
