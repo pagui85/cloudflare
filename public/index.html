@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare Turnstile Example</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <form id="turnstile-form" action="verify.php" method="POST">
+        <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY"></div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
