@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
-const turnstilePlugin = require('@cloudflare/pages-plugin-turnstile');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,7 +8,7 @@ const SECRET_KEY = '0x4AAAAAAAyJkJ3rb6RkrtLOVEqQ48O73ro';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) => {
+app.post('/verify', async (req, res) => {
     console.log("Verification route hit");
 
     const responseKey = req.body['cf-turnstile-response'];
@@ -27,7 +26,7 @@ app.post('/', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) => {
     const data = await response.json();
     console.log("Verification result:", data);
 
-    res.json(data);  // Sending JSON response to the client
+    res.json(data);  // Ensure JSON response to the client
 });
 
 app.listen(PORT, () => {
