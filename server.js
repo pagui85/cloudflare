@@ -9,7 +9,7 @@ const SECRET_KEY = '0x4AAAAAAAyJkJ3rb6RkrtLOVEqQ48O73ro';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/verify', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) => {
+app.post('/', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) => {
     console.log("Verification route hit");
 
     const responseKey = req.body['cf-turnstile-response'];
