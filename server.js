@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/validate-turnstile', async (req, res) => {
     const token = req.body.token;
-    const secretKey = 'YOUR_SECRET_KEY'; // Replace with your secret key
+    const secretKey = '0x4AAAAAAAyJdbgsF3y0vD16_Hk9NB2wALM'; // Replace with your secret key
 
     console.log('Received token:', token);
 
