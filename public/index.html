@@ -10,7 +10,7 @@
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyJkLK3syXTgIH9" data-callback="onSuccess"></div>
     <script>
         function onSuccess(token) {
-            fetch('/', {
+            fetch('/verify', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
