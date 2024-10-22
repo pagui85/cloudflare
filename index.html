@@ -1,86 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf8">
-		<title>Cloudflare Pages | Form Demo</title>
-		<meta name="theme-color" content="#d86300">
-		<meta name="mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<link rel="icon" type="image/png" href="https://www.cloudflare.com/favicon-128.png">
-		<link rel="stylesheet" href="/index.css">
-		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_turnstileCb" defer></script>
-	</head>
-	<body>
-
-		<main>
-			<h1>Demo: Form Submission</h1>
-
-			<blockquote>
-				<p>This is a demonstration of Cloudflare Pages with Turnstile.</p>
-				<p>Pages deployed a <code>/public</code> directory, containing a HTML document (this webpage) and a <code>/functions</code> directory, which contains the Cloudflare Workers code for the API endpoint this <code>&lt;form&gt;</code> references.</p>
-				<p><b>NOTE:</b> On form submission, the API endpoint responds with a JSON representation of the data. There is no JavaScript running in this example.</p>
-			</blockquote>
-
-			<form method="POST" action="/api/submit">
-				<div class="input">
-					<label for="name">Full Name</label>
-					<input id="name" name="name" type="text" />
-				</div>
-
-				<div class="input">
-					<label for="email">Email Address</label>
-					<input id="email" name="email" type="email" />
-				</div>
-
-				<div class="input">
-					<label for="referers">How did you hear about us?</label>
-					<select id="referers" name="referers">
-						<option hidden disabled selected value></option>
-						<option value="Facebook">Facebook</option>
-						<option value="Twitter">Twitter</option>
-						<option value="Google">Google</option>
-						<option value="Bing">Bing</option>
-						<option value="Friends">Friends</option>
-					</select>
-				</div>
-
-				<div class="checklist">
-					<label>What are your favorite movies?</label>
-					<ul>
-						<li>
-							<input id="m1" type="checkbox" name="movies" value="Space Jam" />
-							<label for="m1">Space Jam</label>
-						</li>
-						<li>
-							<input id="m2" type="checkbox" name="movies" value="Little Rascals" />
-							<label for="m2">Little Rascals</label>
-						</li>
-						<li>
-							<input id="m3" type="checkbox" name="movies" value="Frozen" />
-							<label for="m3">Frozen</label>
-						</li>
-						<li>
-							<input id="m4" type="checkbox" name="movies" value="Home Alone" />
-							<label for="m4">Home Alone</label>
-						</li>
-					</ul>
-				</div>
-				<div id="turnstile-widget" style="padding-top: 20px;"></div>
-				<button type="submit">Submit</button>
-			</form>
-		</main>
-	<script>
-	// This function is called when the Turnstile script is loaded and ready to be used.
-	// The function name matches the "onload=..." parameter.
-	function _turnstileCb() {
-	    console.debug('_turnstileCb called');
-
-	    turnstile.render('#turnstile-widget', {
-	      sitekey: '0x4AAAAAAAyJkLK3syXTgIH9',
-	      theme: 'light',
-	    });
-	}
-	</script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare Turnstile Example</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyJkLK3syXTgIH9" data-callback="onSuccess"></div>
+    <script>
+        function onSuccess(token) {
+            fetch('YOUR_WORKER_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'cf-turnstile-response': token
+                })
+            })
+            .then(response => {
+                if (response.status === 302) {
+                    window.location.href = response.headers.get('Location')
+                } else {
+                    alert('Verification failed!')
+                }
+            })
+            .catch(error => console.error("Error:", error))
+        }
+    </script>
+</body>
 </html>
