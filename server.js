@@ -11,7 +11,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/validate-turnstile', async (req, res) => {
     const token = req.body.token;
-    const secretKey = '0x4AAAAAAAyIrtgD2fX2JGJt4H2PCFSMkcE'; // Replace with your secret key
+    const secretKey = 'YOUR_SECRET_KEY'; // Replace with your secret key
+
+    console.log('Received token:', token);
 
     try {
         const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
@@ -23,7 +25,7 @@ app.post('/validate-turnstile', async (req, res) => {
         });
 
         const data = await response.json();
-        console.log('Validation response:', data);
+        console.log('Validation response from Cloudflare:', data);
 
         if (data.success) {
             res.json({ success: true });
