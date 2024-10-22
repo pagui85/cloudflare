@@ -30,16 +30,15 @@
 
                 if (token) {
                     // Send the token to the server for validation
-                    fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+                    fetch('/validate-turnstile', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
-                        body: `secret=0x4AAAAAAAyIrtgD2fX2JGJt4H2PCFSMkcE&response=${token}`
+                        body: JSON.stringify({ token: token })
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Validation response:', data);
                         if (data.success) {
                             // Redirect to the desired URL
                             window.location.href = 'https://photos.app.goo.gl/dpKuuSvA2pESKoGw7';
