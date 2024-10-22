@@ -27,11 +27,7 @@ app.post('/verify', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) =>
     const data = await response.json();
     console.log("Verification result:", data);
 
-    if (data.success) {
-        res.send('Verification successful!');
-    } else {
-        res.send('Verification failed!');
-    }
+    res.json(data);  // Sending JSON response to the client
 });
 
 app.listen(PORT, () => {
