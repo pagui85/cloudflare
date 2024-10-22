@@ -10,23 +10,24 @@
     <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyJkLK3syXTgIH9" data-callback="onSuccess"></div>
     <script>
         function onSuccess(token) {
-            fetch('/verify', {
+            fetch('https://wispy-forest-fcb3.dan-papuga.workers.dev', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
                     'cf-turnstile-response': token,
-                })
+                }),
             })
-            .then(response => {
-                if (response.status === 302) {
-                    window.location.href = response.headers.get('Location')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'https://photos.app.goo.gl/dpKuuSvA2pESKoGw7';
                 } else {
-                    alert('Verification failed!')
+                    alert('Verification failed!');
                 }
             })
-            .catch(error => console.error("Error:", error))
+            .catch(error => console.error("Error:", error));
         }
     </script>
 </body>
