@@ -21,6 +21,7 @@ app.post('/verify', turnstilePlugin({ secret: SECRET_KEY }), async (req, res) =>
         body: `secret=${SECRET_KEY}&response=${responseKey}&remoteip=${remoteIP}`
     });
 
+    res.send('wait')
     const data = await response.json();
 
     if (data.success) {
